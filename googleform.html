@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Form Clone</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+        }
+        .form-container {
+            width: 100%;
+            max-width: 500px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background: #0056b3;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Google Form Clone</h2>
+        <form id="googleForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" pattern="^[A-Za-z ]+$" required>
+                <div class="error" id="nameError">Name can only contain letters and spaces.</div>
+            </div>
+            <div class="form-group">
+                <label for="rollNo">Roll No.</label>
+                <input type="text" id="rollNo" name="rollNo" pattern="^[0-9 ]+$" required>
+                <div class="error" id="nameError">Roll No. can only contain numbers.</div>
+                <!-- <input type="number" id="rollNo" name="rollNo" required> -->
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+                <div class="error" id="phoneError">Please enter a 10-digit phone number.</div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <div class="error" id="emailError">Email must end with @gmail.com.</div>
+            </div>
+            <div class="form-group">
+                <label for="task">Task</label>
+                <textarea id="task" name="task" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('googleForm');
+        const phoneInput = document.getElementById('phone');
+        const emailInput = document.getElementById('email');
+        const nameInput = document.getElementById('name');
+        const phoneError = document.getElementById('phoneError');
+        const emailError = document.getElementById('emailError');
+        const nameError = document.getElementById('nameError');
+
+        phoneError.style.display = 'none';
+        emailError.style.display = 'none';
+        nameError.style.display = 'none';
+
+        form.addEventListener('submit', (e) => {
+            let valid = true;
+
+            // Name validation
+            if (!/^[A-Za-z ]+$/.test(nameInput.value)) {
+                nameError.style.display = 'block';
+                valid = false;
+            } else {
+                nameError.style.display = 'none';
+            }
+
+            // Phone validation
+            if (!/^[0-9]{10}$/.test(phoneInput.value)) {
+                phoneError.style.display = 'block';
+                valid = false;
+            } else {
+                phoneError.style.display = 'none';
+            }
+
+            // Email domain validation
+            if (!emailInput.value.endsWith('@gmail.com')) {
+                emailError.style.display = 'block';
+                valid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+
+            if (!valid) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
